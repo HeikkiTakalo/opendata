@@ -1,21 +1,23 @@
+import {useState} from "react";
+import axios from "axios";
+
+
+
 function App() {
 
-  async function getData() {
-    const response = await fetch('https://yesno.wtf/api');
-    const jsonBody = await response.json()
-    console.log(jsonBody.answer);
-  }
 
-  function getData2() {
-    fetch('https://yesno.wtf/api')
-      .then(resp => resp.json()
-        .then(json => console.log(json.answer))
-      )
+  const [img, setImg] = useState(null);
+
+  async function getData() {
+    const response = await axios('https://yesno.wtf/api');
+    const data = response.data;
+    setImg(data.iamge);
   }
 
   return (
     <div>
       <button onClick={getData}>OK</button>
+      <img src={img}/>
     </div>
   )
 }
